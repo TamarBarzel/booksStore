@@ -1,0 +1,142 @@
+.container {
+    display: flex;
+    justify-content: space-between; /* כדי להרחיק אותם זה מזה */
+    align-items: flex-start; /* מיושר למעלה */
+    gap: 20px; /* רווח בין האזורים */
+    margin: 20px;
+}
+#products-container {
+    flex: 1; /* הקונטיינר יתפוס 100% מהרוחב הזמין */
+}
+
+.books-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; 
+}
+
+.table-header {
+    display: flex;
+    font-weight: bold;
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+
+.book-row {
+    display: flex;
+    
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+
+
+.book-title, .book-price, .book-rate ,.book-id{
+    flex-basis: 10%; 
+    text-align: left; 
+    margin: 0 10px; 
+}
+
+.table-header span {
+    flex-basis: 15%; 
+    text-align: left; 
+}
+.form-field {
+    margin-bottom: 15px; 
+}
+#edit-form {
+    position: fixed;
+    text-align: right;
+    top: 0;
+    right: 0; 
+    width: 300px; 
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: white;
+    padding: 20px;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5); 
+    z-index: 1000; 
+    display: block; 
+    visibility: visible;
+    opacity: 1;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; /* מעבר חלק בעת הצגת הטופס */
+    transform: translateX(0); 
+    
+}
+
+#overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out;
+}
+
+button {
+    margin: 5px; 
+}
+
+button.edit-book {
+    background-color: red; 
+    color: white; 
+    border: none; 
+    padding: 10px; 
+    cursor: pointer; 
+}
+
+button.remove-book {
+    background-color: black; 
+    color: white; 
+    border: none; 
+    padding: 10px; 
+    cursor: pointer; 
+}
+
+#book-preview-container {
+    flex: 0.3; /* הקונטיינר יתפוס כ-40% מהרוחב הזמין */
+    max-width: 400px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+#preview-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+#preview-container img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+#preview-container .form-field {
+    margin: 10px 0;
+}
+
+#preview-container input[type="range"] {
+    width: 100%;
+}
+
+
+
+/* .book-cover{
+    flex-basis: 10%; 
+    text-align: left;
+    margin: 0 10px; 
+} */
+
+/* 
+.book-image {
+    width: 50px; 
+    height: auto;
+    border-radius: 8px;
+} */

@@ -1,0 +1,143 @@
+{ "books":[
+    {
+      "id": 1,
+      "title": "The Great Gatsby",
+      "price": 49.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/a0/The_Great_Gatsby_cover_1925_%281%29.jpg",
+      "rate": 4.4
+    },
+    {
+      "id": 2,
+      "title": "1984",
+      "price": 39.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c3/1984first.jpg",
+      "rate": 4.7
+    },
+    {
+      "id": 3,
+      "title": "To Kill a Mockingbird",
+      "price": 59.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/en/7/79/To_Kill_a_Mockingbird.JPG",
+      "rate": 4.8
+    },
+    {
+      "id": 4,
+      "title": "Pride and Prejudice",
+      "price": 44.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/1/1e/Title_page_Pride_and_Prejudice_1st_edition_1813.jpg",
+      "rate": 4.6
+    },
+    {
+      "id": 5,
+      "title": "The Catcher in the Rye",
+      "price": 34.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/en/3/32/Rye_catcher.jpg",
+      "rate": 4.3
+    },
+    {
+      "id": 6,
+      "title": "Moby-Dick",
+      "price": 54.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/41/Moby-Dick_FE_title_page.jpg",
+      "rate": 4.2
+    },
+    {
+      "id": 7,
+      "title": "Brave New World",
+      "price": 41.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/en/6/62/BraveNewWorld_FirstEdition.jpg",
+      "rate": 4.5
+    },
+    {
+      "id": 8,
+      "title": "War and Peace",
+      "price": 69.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/af/War-and-peace-first-edition.jpg",
+      "rate": 4.9
+    },
+    {
+      "id": 9,
+      "title": "The Hobbit",
+      "price": 42.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/a/af/Tolstoy_-_War_and_Peace_-_first_edition%2C_1869.jpg",
+      "rate": 4.8
+    },
+    {
+      "id": 10,
+      "title": "Crime and Punishment",
+      "price": 58.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Crimeandpunishmentcover.png",
+      "rate": 4.7
+    },
+    {
+      "id": 11,
+      "title": "The Odyssey",
+      "price": 49.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Aeneis_and_Odyssey.jpg",
+      "rate": 4.6
+    },
+    {
+      "id": 12,
+      "title": "The Iliad",
+      "price": 52.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Iliad_1539_Latin.jpg",
+      "rate": 4.5
+    },
+    {
+      "id": 13,
+      "title": "Fahrenheit 451",
+      "price": 37.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/en/d/db/Fahrenheit_451_1st_ed_cover.jpg",
+      "rate": 4.4
+    },
+    {
+      "id": 14,
+      "title": "Don Quixote",
+      "price": 64.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Don_Quixote_1st_ed.jpg",
+      "rate": 4.7
+    },
+    {
+      "id": 15,
+      "title": "The Lord of the Rings",
+      "price": 79.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/en/8/8e/The_Lord_of_the_Rings_cover.gif",
+      "rate": 4.9
+    },
+    {
+      "id": 16,
+      "title": "Anna Karenina",
+      "price": 59.99,
+      "coverImageUrl": "https://en.wikipedia.org/wiki/Anna_Karenina#/media/File:AnnaKareninaTitle.jpg",
+      "rate": 4.6
+    },
+    {
+      "id": 17,
+      "title": "Frankenstein",
+      "price": 33.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/3/35/Frankenstein_1818_edition_title_page.jpg",
+      "rate": 4.3
+    },
+    {
+      "id": 18,
+      "title": "The Brothers Karamazov",
+      "price": 61.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/d/d2/Brothers_Karamazov.png",
+      "rate": 4.8
+    },
+    {
+      "id": 19,
+      "title": "Les Misérables",
+      "price": 68.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Les_Miserables_1862_1st_ed.jpg",
+      "rate": 4.9
+    },
+    {
+      "id": 20,
+      "title": "Dracula",
+      "price": 39.99,
+      "coverImageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/20/Dracula1st.jpeg",
+      "rate": 4.4
+    }
+  ]
+}  
