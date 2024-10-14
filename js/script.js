@@ -88,13 +88,6 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('price-header').addEventListener('click', () => sortBooks('price'));
         document.getElementById('rate-header').addEventListener('click', () => sortBooks('rate'));
     }
-    //לכתוב טופס הצגת ספר + דירוג
-    
-    // let lastAssignedId = 40;
-
-    // function getNextId() {
-    //     return lastAssignedId++;
-    // }
 
     function showEditForm(book = null) {
         const overlay = document.createElement('div');
@@ -199,10 +192,54 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-
-
     function saveBooksToLocalStorage(books) {
         localStorage.setItem('books', JSON.stringify(books));
+    }
+
+    function showReadBook(book) {
+        const previewContainer = document.createElement('div');
+        previewContainer.id = 'preview-container';
+        previewContainer.innerHTML = `
+            <h2>${book.title}</h2>
+            <img src="${book.coverImageUrl}" alt="${book.title}">
+            <p>מחיר: $${book.price.toFixed(2)}</p>
+            <div class="form-field">
+                <label for="read-rate">דירוג:</label>
+                <input type="range" id="read-rate" value="${book.rate}" step="0.1" min="0" max="5" required>
+                <span id="rate-value">${book.rate}</span>
+            </div>
+            <button id="save-book">שמור דירוג</button>
+            <button id="cancel-view">ביטול</button>
+        `;
+        document.body.appendChild(previewContainer);
+    
+        const rateInput = document.getElementById('read-rate');
+        const rateValueDisplay = document.getElementById('rate-value');
+    
+        // עדכון הצגת הדירוג הנוכחי
+        rateValueDisplay.textContent = rateInput.value;
+    
+        // עדכון התצוגה כשיש שינוי בדירוג
+        rateInput.addEventListener('input', function () {
+            rateValueDisplay.textContent = this.value;
+        });
+    
+        // כפתור שמירה של דירוג מעודכן
+        document.getElementById('save-book').addEventListener('click', function () {
+            book.rate = parseFloat(rateInput.value);
+            updateBook(book);  
+            closeReadForm();
+            renderBooks();  
+        });
+    
+        document.getElementById('cancel-view').addEventListener('click', closeReadForm);
+    
+        function closeReadForm() {
+            const previewContainer = document.getElementById('preview-container');
+            if (previewContainer) {
+                document.body.removeChild(previewContainer);
+            }
+        }
     }
 
     function initialBooks() {
@@ -227,7 +264,7 @@ document.addEventListener('DOMContentLoaded', function () {
         saveBooksToLocalStorage(updatedArrayBooks);
         renderBooks();
     }
-    //בדיקת כפילות קוד מול הטופס לעריכת ספר/ חדש
+
     function createBook(newBook) {
         const books = getAllBooks();
         newBook.id = books.length ? books[books.length - 1].id + 1 : 1;
@@ -265,7 +302,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
 
-        saveBooksToLocalStorage(books); // שמירה אחרי המיון
+        saveBooksToLocalStorage(books); 
         renderBooks();
     }
 
@@ -279,30 +316,3 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log(getAllBooks());
 });
 
-function showReadBook(book) {
-    const previewContainer = document.createElement('div')
-    previewContainer.id = 'preview-container'
-    previewContainer.innerHTML = `
-        <h2>${book.title}</h2>
-        <img src="${book.coverImageUrl}" alt="${book.title}">
-        <p>מחיר: $${book.price.toFixed(2)}</p>
-        <div class="form-field">
-            <label for="edit-rate">דירוג:</label>
-            <input type="range" id="edit-rate" value="${book ? book.rate : '0'}" step="0.1" min="0" max="5" required>
-            <span id="rate-value">${book ? book.rate : '0'}</span>
-        </div>
-        `;
-    const bookPreviewContainer = document.getElementById('book-preview-container');
-    const existingPreview = document.getElementById('preview-container')
-
-    if (existingPreview) {
-        bookPreviewContainer.removeChild(existingPreview)
-    }
-    bookPreviewContainer.appendChild(previewContainer)
-
-}
-
-
-
-// התמונה של הספר
-/* <img src="${book.coverImageUrl}" alt="${book.title}" class="book-image book-cover"> */
