@@ -2,10 +2,7 @@ import data from "../books.json" with { type: "json" };
 
 document.addEventListener('DOMContentLoaded', function () {
     const productsContainer = document.getElementById('products-container');
-    const addBookButton = document.createElement('button');
-    addBookButton.innerText = 'הוסף ספר חדש';
-    addBookButton.id = 'add-book-button';
-    productsContainer.appendChild(addBookButton);
+    const addBookButton = document.getElementById('addBook'); // הפניית הכפתור מה-HTML
     initialBooks();
 
     let sortOrder = {
@@ -91,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
             button.addEventListener('click', function () {
                 const id = parseInt(this.getAttribute('data-id'));
                 const book = getById(id)
-                showReadBook(book)
+                showEditForm(book,true)
             })
         })
 
@@ -101,13 +98,12 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('rate-header').addEventListener('click', () => sortBooks('rate'));
     }
 
-    function showEditForm(book = null) {
+    function showEditForm(book = null, isReadOnly = false) {
         const overlay = document.createElement('div');
         overlay.id = 'overlay';
         document.body.appendChild(overlay);
-
+    
         const editForm = document.createElement('div');
-        // editForm.classList.add('modal-dialog');
         let newId;
         if (book) {
             newId = book.id;
@@ -115,87 +111,96 @@ document.addEventListener('DOMContentLoaded', function () {
             const books = getAllBooks();
             newId = books.length ? books[books.length - 1].id + 1 : 1;
         }
+    
+        // יצירת HTML עבור טופס העריכה/קריאה
         editForm.innerHTML = `
-            <h2>${book ? 'ערוך ספר' : 'הוסף ספר חדש'}</h2>
-            <div class="form-field">
-                <label for="edit-id">אינדקס</label>
-                <input type="number" id="edit-id" value="${newId}" required readonly> 
+            <div class="form-header">
+                <img src="${book ? book.coverImageUrl : ''}" alt="${book ? book.title : ''}" class="book-image">
+                <h2 class="form-title">${book ? (isReadOnly ? `${book.title}` : 'ערוך ספר') : 'הוסף ספר חדש'}</h2>
             </div>
-            <div class="form-field">
-                <label for="edit-title">כותרת</label>
-                <input type="text" id="edit-title" value="${book ? book.title : ''}" required>
+
+            <div class="form-field ${isReadOnly ? 'readonly' : ''}">
+                <label for="edit-title">:שם</label>
+                <input type="text" id="edit-title" value="${book ? book.title : ''}" required ${isReadOnly ? 'readonly' : ''}>
             </div>
-            <div class="form-field">
-                <label for="edit-img">תמונה (url)</label>
-                <input type="text" id="edit-img" value="${book ? book.coverImageUrl : ''}" required>
+            <div class="form-field ${isReadOnly ? 'readonly' : ''}">
+                <label for="edit-img">:(url) תמונה</label>
+                <input type="text" id="edit-img" value="${book ? book.coverImageUrl : ''}" required ${isReadOnly ? 'readonly' : ''}>
+            </div>  
+            <div class="form-field price-rate-field">  
+                <div class="form-field">
+                    <label for="edit-rate">:דירוג</label>
+                    <input type="range" id="edit-rate" value="${book ? book.rate : '0'}" step="0.1" min="0" max="5" ${isReadOnly ? '' : 'required'}>
+                    <span id="rate-value">${book ? book.rate : '0'}</span>
+                </div>        
+                <div class="form-field ${isReadOnly ? 'readonly' : ''}">
+                    <label for="edit-price">:מחיר</label>
+                    <input type="number" id="edit-price" value="${book ? book.price : ''}" required ${isReadOnly ? 'readonly' : ''}>
+                </div>
             </div>
-            <div class="form-field">
-                <label for="edit-price">מחיר</label>
-                <input type="number" id="edit-price" value="${book ? book.price : ''}" required> 
-            </div>
-            <div class="form-field">
-                <label for="edit-rate">דירוג</label>
-                <input type="range" id="edit-rate" value="${book ? book.rate : '0'}" step="0.1" min="0" max="5" required>
-                <span id="rate-value">${book ? book.rate : '0'}</span>
-            </div>
-            <button id="save-book">${book ? 'שמור' : 'צור'}</button>
+            <button id="save-book">${isReadOnly ? 'שמור דירוג' : book ? 'שמור' : 'צור'}</button>
             <button id="cancel-edit">ביטול</button>
         `;
-        console.log('טופס נוצר בהצלחה:', editForm);
-
-
+    //לדעתי לא נדרש - הוספת תגית האינדקס לטופס
+    //     <div class="form-field ${isReadOnly ? 'readonly' : ''}">
+    //     <label for="edit-id">:מספר בקטלוג</label>
+    //     <input type="number" id="edit-id" value="${newId}" required readonly>
+    //     </div>
+    
         if (document.getElementById('edit-form')) {
-            productsContainer.removeChild(document.getElementById('edit-form'));
+            document.body.removeChild(document.getElementById('edit-form'));
         }
+    
         editForm.id = 'edit-form';
         document.body.appendChild(editForm);
         const rateInput = document.getElementById('edit-rate');
         const rateValueDisplay = document.getElementById('rate-value');
-
         // הצגת הדירוג הנוכחי
         rateValueDisplay.textContent = rateInput.value;
-
-        // עדכון התצוגה כשיש שינוי
+        // עדכון התצוגה כשיש שינוי בדירוג
         rateInput.addEventListener('input', function () {
             rateValueDisplay.textContent = this.value;
         });
-
+    
         document.getElementById('save-book').addEventListener('click', function () {
-            const updatedBook = {
-                id: parseInt(document.getElementById('edit-id').value),
-                title: document.getElementById('edit-title').value,
-                img: document.getElementById('edit-img').value,
-                price: parseFloat(document.getElementById('edit-price').value),
-                rate: parseFloat(document.getElementById('edit-rate').value)
-            };
-            console.log(updateBook);
-            console.log(updateBook);
-
-
-            if (book) {
-                book.id = updatedBook.id;
-                updateBook(updatedBook);
+            if (isReadOnly) {
+                // עדכון הדירוג בלבד במקרה של תצוגת קריאה
+                book.rate = parseFloat(rateInput.value);
+                updateBook(book);
             } else {
-                const newBook = {
-                    id: document.getElementById('edit-id').value,
-                    title: document.getElementById('edit-title').value,
-                    img: document.getElementById('edit-img').value,
-                    price: parseFloat(document.getElementById('edit-price').value),
-                    rate: parseFloat(document.getElementById('edit-rate').value)
-                };
-                createBook(newBook);
+                handleSave(book);
             }
-            closeEditForm();
-            renderBooks();
+            closeEditForm(); 
+            renderBooks();   
         });
-
+    
         document.getElementById('cancel-edit').addEventListener('click', closeEditForm);
         overlay.addEventListener('click', closeEditForm);
     }
+    
+    function handleSave(book) {
+        const updatedBook = {
+            id: book ? book.id : null,
+            title: document.getElementById('edit-title').value,
+            img: document.getElementById('edit-img').value,
+            price: parseFloat(document.getElementById('edit-price').value),
+            rate: parseFloat(document.getElementById('edit-rate').value)
+        };
+    
+        if (book) {
+            updateBook(updatedBook);
+        } else {
+            createBook(updatedBook);
+        }
+    
+        closeEditForm();
+        renderBooks();
+    }
+    
     function closeEditForm() {
         const editForm = document.getElementById('edit-form');
         const overlay = document.getElementById('overlay');
-
+    
         if (editForm) {
             document.body.removeChild(editForm);
         }
@@ -203,57 +208,11 @@ document.addEventListener('DOMContentLoaded', function () {
             document.body.removeChild(overlay);
         }
     }
-
+    
     function saveBooksToLocalStorage(books) {
         localStorage.setItem('books', JSON.stringify(books));
     }
-
-    function showReadBook(book) {
-        const previewContainer = document.createElement('div');
-        previewContainer.id = 'preview-container';
-        previewContainer.innerHTML = `
-            <h2>${book.title}</h2>
-            <img src="${book.coverImageUrl}" alt="${book.title}">
-            <p>מחיר: $${book.price.toFixed(2)}</p>
-            <div class="form-field">
-                <label for="read-rate">דירוג:</label>
-                <input type="range" id="read-rate" value="${book.rate}" step="0.1" min="0" max="5" required>
-                <span id="rate-value">${book.rate}</span>
-            </div>
-            <button id="save-book">שמור דירוג</button>
-            <button id="cancel-view">ביטול</button>
-        `;
-        document.body.appendChild(previewContainer);
     
-        const rateInput = document.getElementById('read-rate');
-        const rateValueDisplay = document.getElementById('rate-value');
-    
-        // עדכון הצגת הדירוג הנוכחי
-        rateValueDisplay.textContent = rateInput.value;
-    
-        // עדכון התצוגה כשיש שינוי בדירוג
-        rateInput.addEventListener('input', function () {
-            rateValueDisplay.textContent = this.value;
-        });
-    
-        // כפתור שמירה של דירוג מעודכן
-        document.getElementById('save-book').addEventListener('click', function () {
-            book.rate = parseFloat(rateInput.value);
-            updateBook(book);  
-            closeReadForm();
-            renderBooks();  
-        });
-    
-        document.getElementById('cancel-view').addEventListener('click', closeReadForm);
-    
-        function closeReadForm() {
-            const previewContainer = document.getElementById('preview-container');
-            if (previewContainer) {
-                document.body.removeChild(previewContainer);
-            }
-        }
-    }
-
     function initialBooks() {
         if (!localStorage.getItem('books')) {
             saveBooksToLocalStorage(data.books);
@@ -278,6 +237,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function createBook(newBook) {
+        const errorMessageElement = document.getElementById('error-message');
+        errorMessageElement.textContent = ''; // ניקוי הודעות קודמות
+        if (!isBookValid(newBook)) {
+            errorMessageElement.textContent = 'שגיאה: כל השדות חייבים להיות מלאים ותקינים.';
+            console.error('Invalid book data. Please fill all fields correctly.');
+            return;  
+        }
         const books = getAllBooks();
         newBook.id = books.length ? books[books.length - 1].id + 1 : 1;
         books.push(newBook);
@@ -285,13 +251,26 @@ document.addEventListener('DOMContentLoaded', function () {
         renderBooks();
     }
     function updateBook(updatedBook) {
+        const errorMessageElement = document.getElementById('error-message');
+        errorMessageElement.textContent = ''; // ניקוי הודעות קודמות
+        if (!isBookValid(updatedBook)) {
+            errorMessageElement.textContent = 'שגיאה: כל השדות חייבים להיות מלאים ותקינים.';
+            console.error('Invalid book data. Please fill all fields correctly.');
+            return;  
+        }
         let books = getAllBooks();
-
         const index = books.findIndex(book => book.id === updatedBook.id);
+
         if (index !== -1) {
             books[index] = updatedBook;
             saveBooksToLocalStorage(books);
         }
+    }
+
+    function isBookValid(book) {
+        return book.title.trim() !== '' && 
+               book.price > 0 && 
+               book.coverImageUrl.trim() !== '' 
     }
 
     function sortBooks(field) {
@@ -327,4 +306,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     console.log(getAllBooks());
 });
+
+
+
 
