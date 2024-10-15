@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <th scope="col" id="title-header" class="sortable">כותרת ${getSortArrow('title')}</th>
                 <th scope="col" id="price-header" class="sortable">מחיר ${getSortArrow('price')}</th>
                 <th scope="col" id="rate-header" class="sortable">דירוג ${getSortArrow('rate')}</th>
-                <th scope="col">פעולות</th>
+                <th scope="col"></th>
             </tr>
         `;
         table.appendChild(thead);
@@ -117,25 +117,24 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         editForm.innerHTML = `
             <h2>${book ? 'ערוך ספר' : 'הוסף ספר חדש'}</h2>
-            
             <div class="form-field">
-                <label for="edit-id">אינדקס:</label>
-                <input type="number" id="edit-id" value="${newId}" required readonly>
+                <label for="edit-id">אינדקס</label>
+                <input type="number" id="edit-id" value="${newId}" required readonly> 
             </div>
             <div class="form-field">
-                <label for="edit-title">כותרת:</label>
+                <label for="edit-title">כותרת</label>
                 <input type="text" id="edit-title" value="${book ? book.title : ''}" required>
             </div>
             <div class="form-field">
-                <label for="edit-img">תמונה:</label>
+                <label for="edit-img">תמונה (url)</label>
                 <input type="text" id="edit-img" value="${book ? book.coverImageUrl : ''}" required>
             </div>
             <div class="form-field">
-                <label for="edit-price">מחיר:</label>
-                <input type="number" id="edit-price" value="${book ? book.price : ''}" required>
+                <label for="edit-price">מחיר</label>
+                <input type="number" id="edit-price" value="${book ? book.price : ''}" required> 
             </div>
             <div class="form-field">
-                <label for="edit-rate">דירוג:</label>
+                <label for="edit-rate">דירוג</label>
                 <input type="range" id="edit-rate" value="${book ? book.rate : '0'}" step="0.1" min="0" max="5" required>
                 <span id="rate-value">${book ? book.rate : '0'}</span>
             </div>

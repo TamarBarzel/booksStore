@@ -15,12 +15,12 @@
     gap: 10px; 
 }
 
-.table-header {
+/* .table-header {
     display: flex;
     font-weight: bold;
     background-color: #f1f1f1;
     padding: 10px;
-}
+} */
 
 .book-row {
     display: flex;
@@ -32,19 +32,35 @@
 }
 
 
-.book-title, .book-price, .book-rate ,.book-id{
+/* .book-title, .book-price, .book-rate ,.book-id{
     flex-basis: 10%; 
     text-align: left; 
     margin: 0 10px; 
-}
+} */
 
-.table-header span {
+/* .table-header span {
     flex-basis: 15%; 
     text-align: left; 
-}
+} */
 .form-field {
-    margin-bottom: 15px; 
+    margin-bottom: 10px; 
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
+label {
+    margin-bottom: 5px; /* רווח קטן מתחת ללייבל */
+    text-align: right;
+}
+
+input[type="number"],
+input[type="text"],
+input[type="range"] {
+    width: 100%; /* הופך את שדות הקלט לרוחב מלא של המיכל */
+    padding: 8px; /* ריווח פנימי לשדות הקלט */
+    box-sizing: border-box; /* מאפשר לכלול את הריווח הפנימי במידות הכלליות של השדה */
+}
+
 #edit-form {
     position: fixed;
     text-align: right;
@@ -81,6 +97,8 @@
 
 button {
     margin: 5px; 
+    margin-right: 10px; /* רווח בין הכפתורים */
+    padding: 10px 20px;
 }
 
 button.edit-book {
@@ -100,7 +118,8 @@ button.remove-book {
 }
 
 #book-preview-container {
-    flex: 0.3; /* הקונטיינר יתפוס כ-40% מהרוחב הזמין */
+    /*להסתיר כשלא לחוץ*/
+    flex: 0.3; /* הקונטיינר יתפוס כ-30% מהרוחב הזמין */
     max-width: 400px;
     border: 1px solid #ccc;
     border-radius: 10px;
@@ -120,6 +139,9 @@ button.remove-book {
 
 #preview-container .form-field {
     margin: 10px 0;
+     display: flex;
+    align-items: center; /* מרכז את התווית והקלט לאורך ציר האנכי */
+    margin-bottom: 10px;
 }
 
 #preview-container input[type="range"] {
