@@ -33,39 +33,51 @@ document.addEventListener('DOMContentLoaded', function () {
         const books = getAllBooks();
         productsContainer.innerHTML = '';
         productsContainer.appendChild(addBookButton);
-
-        const headerRow = document.createElement('div');
-        headerRow.classList.add('table-header');
-        headerRow.innerHTML = `
-            <span id="id-header" class="sortable">אינדקס${getSortArrow('id')}</span>
-            <span id="title-header" class="sortable">כותרת${getSortArrow('title')}</span>
-            <span id="price-header" class="sortable">מחיר${getSortArrow('price')}</span>
-            <span id="rate-header" class="sortable">דירוג${getSortArrow('rate')}</span>
+    
+        // יצירת כותרות הטבלה עם Bootstrap
+        const table = document.createElement('table');
+        table.classList.add('table', 'table-striped', 'table-responsive');
+        const thead = document.createElement('thead');
+        thead.innerHTML = `
+            <tr>
+                <th scope="col" id="id-header" class="sortable">אינדקס ${getSortArrow('id')}</th>
+                <th scope="col" id="title-header" class="sortable">כותרת ${getSortArrow('title')}</th>
+                <th scope="col" id="price-header" class="sortable">מחיר ${getSortArrow('price')}</th>
+                <th scope="col" id="rate-header" class="sortable">דירוג ${getSortArrow('rate')}</th>
+                <th scope="col">פעולות</th>
+            </tr>
         `;
-        productsContainer.appendChild(headerRow);
-
+        table.appendChild(thead);
+    
+        const tbody = document.createElement('tbody');
+        
         books.forEach(book => {
-            const bookRow = document.createElement('div');
-            bookRow.classList.add('book-row');
+            const bookRow = document.createElement('tr');
             bookRow.innerHTML = `
-                <p class ="book-id">${book.id}<p>
-                <h3 class="book-title">${book.title}</h3>
-                <p class="book-price">$${book.price.toFixed(2)}</p>
-                <p class="book-rate">rating: ${book.rate}</p>
-                <button class="read-book" data-id="${book.id}">צפיה</button>
-                <button class="edit-book" data-id="${book.id}">ערוך</button>
-                <button class="remove-book" data-id="${book.id}">מחק</button>
+                <td class="book-id">${book.id}</td>
+                <td class="book-title">${book.title}</td>
+                <td class="book-price">$${book.price.toFixed(2)}</td>
+                <td class="book-rate">${book.rate}</td>
+                <td>
+                    <button class="btn btn-primary read-book" data-id="${book.id}">צפיה</button>
+                    <button class="btn btn-warning edit-book" data-id="${book.id}">ערוך</button>
+                    <button class="btn btn-danger remove-book" data-id="${book.id}">מחק</button>
+                </td>
             `;
-            productsContainer.appendChild(bookRow);
+            tbody.appendChild(bookRow);
         });
-
+    
+        table.appendChild(tbody);
+        productsContainer.appendChild(table);
+    
+        // הוספת מאזינים לכפתורי הפעולות
         document.querySelectorAll('.remove-book').forEach(button => {
             button.addEventListener('click', function () {
                 const id = parseInt(this.getAttribute('data-id'));
                 removeBook(id);
             });
         });
-
+    
         document.querySelectorAll('.edit-book').forEach(button => {
             button.addEventListener('click', function () {
                 const id = parseInt(this.getAttribute('data-id'));
@@ -95,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(overlay);
 
         const editForm = document.createElement('div');
+        // editForm.classList.add('modal-dialog');
         let newId;
         if (book) {
             newId = book.id;
