@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
             bookRow.innerHTML = `
                 <td class="book-id">${book.id}</td>
                 <td class="book-title">${book.title}</td>
-                <td class="book-price">$${book.price.toFixed(2)}</td>
+                <td class="book-price">$${book.price}</td>
                 <td class="book-rate">${book.rate}</td>
                 <td>
                     <button class="btn btn-primary read-book" data-id="${book.id}">צפיה</button>
@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const updatedBook = {
             id: book ? book.id : null,
             title: document.getElementById('edit-title').value,
-            img: document.getElementById('edit-img').value,
+            coverImageUrl: document.getElementById('edit-img').value,
             price: parseFloat(document.getElementById('edit-price').value),
             rate: parseFloat(document.getElementById('edit-rate').value)
         };
